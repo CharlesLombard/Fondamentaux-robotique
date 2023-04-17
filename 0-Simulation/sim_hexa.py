@@ -80,7 +80,7 @@ while True:
         for pt in points:
             # Drawing each step of the DK calculation
             i += 1
-            T.append(kinematics.rotaton_2D(pt[0], pt[1], pt[2], leg_angle))
+            T.append(kinematics.rotation_2D(pt[0], pt[1], pt[2], leg_angle))
             T[-1][0] += leg_center_pos[0]
             T[-1][1] += leg_center_pos[1]
             T[-1][2] += leg_center_pos[2]
@@ -114,7 +114,7 @@ while True:
         # Temp
         sim.setRobotPose([0, 0, 0.5], [0, 0, 0, 1])
 
-        T = kinematics.rotaton_2D(x, y, z, leg_angle)
+        T = kinematics.rotation_2D(x, y, z, leg_angle)
         T[0] += leg_center_pos[0]
         T[1] += leg_center_pos[1]
         T[2] += leg_center_pos[2]
@@ -122,6 +122,11 @@ while True:
         p.resetBasePositionAndOrientation(
             cross, T, to_pybullet_quaternion(0, 0, leg_angle)
         )
-
+    elif args.mode == "triangle":
+        x = p.readUserDebugParameter(controls["triangle_x"])
+        z = p.readUserDebugParameter(controls["triangle_z"])
+        h = p.readUserDebugParameter(controls["triangle_h"])
+        w = p.readUserDebugParameter(controls["triangle_w"])
+      
     sim.tick()
 
